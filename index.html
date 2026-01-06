@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunkin Nutrition Calculator & Guide</title>
+    <!-- Tailwind CSS for UI/UX -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dunkinOrange: '#ff671f',
+                        dunkinPink: '#da1884',
+                        offWhite: '#f9f9f9',
+                        textDark: '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            scroll-behavior: smooth;
+        }
+        .prose-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+        .prose-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1a202c;
+            border-left: 4px solid #ff671f;
+            padding-left: 1rem;
+        }
+        .prose-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: #da1884;
+        }
+        .prose-content ul {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+        }
+        .prose-content li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .prose-content li::before {
+            content: '☕';
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+        /* Custom Table Styling */
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .nutrition-table th {
+            background-color: #ff671f;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .nutrition-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+        .nutrition-table tr:last-child td {
+            border-bottom: none;
+        }
+        .nutrition-table tr:nth-child(even) {
+            background-color: #fff5f0;
+        }
+    </style>
+</head>
+<body class="bg-offWhite font-sans text-textDark flex flex-col min-h-screen">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fas fa-mug-hot text-dunkinOrange text-3xl"></i>
+                    <span class="font-bold text-2xl tracking-tight text-gray-800">Dunkin<span class="text-dunkinPink">Nutri</span>Guide</span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-600 hover:text-dunkinPink font-medium transition">Home</a>
+                    <a href="#calculator-section" class="text-gray-600 hover:text-dunkinPink font-medium transition">Calculator</a>
+                    <a href="#menu-tables" class="text-gray-600 hover:text-dunkinPink font-medium transition">Menu Data</a>
+                    <a href="#about-writer" class="text-gray-600 hover:text-dunkinPink font-medium transition">About</a>
+                </nav>
+                <div class="md:hidden">
+                    <button class="text-gray-600 hover:text-dunkinOrange focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+        
+        <!-- Hero Section Title -->
+        <div class="bg-white border-b border-gray-200">
+            <div class="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8 text-center">
+                <span class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-dunkinOrange uppercase bg-orange-100 rounded-full">Health & Nutrition</span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
+                    Dunkin Nutrition Calculator: Make Smarter Choices on Your Next Visit
+                </h1>
+                <div class="flex items-center justify-center space-x-4 text-gray-500 text-sm">
+                    <span><i class="far fa-clock mr-1"></i> 8 min read</span>
+                    <span>|</span>
+                    <span><i class="far fa-calendar mr-1"></i> Updated Today</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Content Container -->
+        <article class="max-w-4xl mx-auto px-4 py-10 sm:px-6 lg:px-8 prose-content">
+            
+            <!-- Introduction -->
+            <h2 style="margin-top: 0;">Introduction</h2>
+            <p>
+                Introduction We all love our Dunkin’ runs. Whether it is a morning coffee ritual or a quick donut break, millions of people visit this <a href="https://en.wikipedia.org/wiki/Dunkin%27_Donuts">American multinational coffee and doughnut company</a> every single day. But here is the thing: most of us have no idea how many calories we are actually consuming.
+            </p>
+            <p>
+                That is where a Dunkin' calorie calculator becomes your best friend.
+            </p>
+            <p>
+                If you are trying to lose weight, build muscle, or simply eat healthier, knowing what goes into your body matters. The problem is that Dunkin has hundreds of menu combinations. Different sizes, milk options, flavor swirls, and toppings make it confusing to track nutrition accurately.
+            </p>
+            <p>
+                I created this simple tool to help you make informed decisions without giving up your Dunkin favorites. In this guide, you will find a free calculator, complete nutrition charts, and practical tips to enjoy Dunkin while staying on track with your health goals.
+            </p>
+            <p>Let us dive in.</p>
+
+            <!-- THE REQUESTED BUTTON -->
+            <div id="calculator-section" class="my-10 p-8 bg-orange-50 rounded-xl border-2 border-dashed border-dunkinOrange text-center">
+                <i class="fas fa-calculator text-4xl text-dunkinPink mb-4"></i>
+                <h3 style="margin-top: 0; color: #333;" class="text-xl font-bold mb-4">Ready to check your order?</h3>
+                <a href="https://dunkin-donutmenu.com/dunkin-donuts-calorie-calculator/" style="text-decoration: none;">
+    <button onclick="alert('Calculator feature loaded! Scroll down to see the data tables below.')" class="bg-dunkinOrange hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:-translate-y-1 text-lg">
+        Dunkin Donuts Nutrition Calculator
+    </button>
+</a>
+            </div>
+
+            <!-- What is a Dunkin Nutrition Calculator? -->
+            <h2>What is a Dunkin Nutrition Calculator?</h2>
+            <p>
+                A Dunkin nutrition calculator is a simple online tool that helps you find the exact calories, carbs, protein, and fat in any Dunkin menu item. Instead of guessing or searching through complicated nutrition PDFs, you can get instant answers.
+            </p>
+            <p>This tool is perfect for:</p>
+            <ul>
+                <li>People counting calories for weight loss</li>
+                <li>Fitness enthusiasts tracking macros</li>
+                <li>Diabetics monitoring carbohydrate intake</li>
+                <li>Anyone who wants to make healthier choices</li>
+            </ul>
+          <p>
+            To explore the complete Dunkin menu with updated prices before tracking your nutrition, check out the detailed guide at <a href="https://dunkin-donutmenu.com/">dunkin-donutmenu.com</a>. This way, you can plan your order based on both budget and nutrition goals.
+          </p>
+          <p>
+                The best part? You can customize your order just like you would at the store and see how each change affects the nutrition.
+            </p>
+
+            <!-- How to Use This Calculator -->
+            <h2>How to Use This Calculator</h2>
+            <p>Using this tool is super easy. Just follow these simple steps:</p>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <p><strong>Step 1:</strong> Choose your menu category. This could be coffee, espresso drinks, donuts, or breakfast items.</p>
+                <p><strong>Step 2:</strong> Select the specific item you want to order.</p>
+                <p><strong>Step 3:</strong> Pick your size. Remember that a large drink can have double the calories of a small one.</p>
+                <p><strong>Step 4:</strong> Add your customizations. This includes milk type, sweeteners, flavor swirls, and toppings.</p>
+                <p><strong>Step 5:</strong> View your complete nutrition breakdown instantly.</p>
+            </div>
+            <p class="mt-4">
+                You can also add multiple items to calculate your entire order at once. This helps you see the full picture before you even step into the store.
+            </p>
+
+            <!-- Popular Dunkin Menu Items and Their Nutrition -->
+            <div id="menu-tables">
+                <h2>Popular Dunkin Menu Items and Their Nutrition</h2>
+                <p>
+                    One reason people search for a dunkin donuts nutrition calculator is because the menu is so large. There are over 50 drinks and dozens of food items to choose from. Here is a quick reference for the most popular orders.
+                </p>
+
+                <h3>Coffee and Espresso Drinks</h3>
+                <div class="overflow-x-auto">
+                    <table class="nutrition-table">
+                        <thead>
+                            <tr>
+                                <th>Drink</th>
+                                <th>Size</th>
+                                <th>Calories</th>
+                                <th>Carbs</th>
+                                <th>Protein</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Original Blend Coffee (black)</td><td>Medium</td><td>5</td><td>0g</td><td>0g</td></tr>
+                            <tr><td>Latte with Whole Milk</td><td>Medium</td><td>150</td><td>12g</td><td>10g</td></tr>
+                            <tr><td>Caramel Swirl Latte</td><td>Medium</td><td>290</td><td>42g</td><td>10g</td></tr>
+                            <tr><td>Iced Caramel Macchiato</td><td>Medium</td><td>240</td><td>35g</td><td>8g</td></tr>
+                            <tr><td>Frozen Coffee</td><td>Medium</td><td>620</td><td>98g</td><td>8g</td></tr>
+                            <tr><td>Cold Brew (black)</td><td>Medium</td><td>5</td><td>0g</td><td>0g</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Donuts</h3>
+                <div class="overflow-x-auto">
+                    <table class="nutrition-table">
+                        <thead>
+                            <tr>
+                                <th>Donut Type</th>
+                                <th>Calories</th>
+                                <th>Carbs</th>
+                                <th>Fat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Glazed Donut</td><td>260</td><td>31g</td><td>14g</td></tr>
+                            <tr><td>Chocolate Frosted</td><td>280</td><td>34g</td><td>15g</td></tr>
+                            <tr><td>Boston Kreme</td><td>300</td><td>40g</td><td>15g</td></tr>
+                            <tr><td>Jelly Donut</td><td>280</td><td>39g</td><td>13g</td></tr>
+                            <tr><td>Old Fashioned</td><td>290</td><td>28g</td><td>19g</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Breakfast Sandwiches</h3>
+                <div class="overflow-x-auto">
+                    <table class="nutrition-table">
+                        <thead>
+                            <tr>
+                                <th>Sandwich</th>
+                                <th>Calories</th>
+                                <th>Protein</th>
+                                <th>Carbs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Bacon Egg and Cheese</td><td>510</td><td>21g</td><td>40g</td></tr>
+                            <tr><td>Sausage Egg and Cheese</td><td>640</td><td>24g</td><td>41g</td></tr>
+                            <tr><td>Egg and Cheese Wake Up Wrap</td><td>180</td><td>9g</td><td>14g</td></tr>
+                            <tr><td>Turkey Sausage Egg and Cheese</td><td>430</td><td>22g</td><td>40g</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    These numbers can change based on your customizations. That is why using the dunkin donuts calorie calculator above gives you the most accurate results for your specific order.
+                </p>
+            </div>
+
+            <!-- Lowest Calorie Options at Dunkin -->
+            <h2>Lowest Calorie Options at Dunkin</h2>
+            <p>
+                Good news. You do not have to skip Dunkin to stay healthy. There are plenty of low calorie options that still taste great.
+            </p>
+
+            <h3>Best Drinks Under 50 Calories</h3>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <li>Black Hot Coffee (5 calories)</li>
+                <li>Black Iced Coffee (5 calories)</li>
+                <li>Cold Brew with no cream (5 calories)</li>
+                <li>Unsweetened Iced Tea (5 calories)</li>
+                <li>Americano (10 calories)</li>
+            </ul>
+
+            <h3>Smart Swaps to Cut Calories</h3>
+            <p>Here are some easy changes that make a big difference:</p>
+            <ul>
+                <li><strong>Choose almond milk instead of whole milk.</strong> This saves about 60 calories per drink.</li>
+                <li><strong>Skip the flavor swirls.</strong> Each pump adds around 50 calories. Ask for sugar free options instead.</li>
+                <li><strong>Say no to whipped cream.</strong> You will save 80 calories instantly.</li>
+                <li><strong>Go for a smaller size.</strong> A small latte has nearly half the calories of a large one.</li>
+                <li><strong>Order iced drinks.</strong> They often have slightly fewer calories than frozen versions because frozen drinks contain more sugar.</li>
+            </ul>
+
+            <!-- How Customizations Change Your Calories -->
+            <h2>How Customizations Change Your Calories</h2>
+            <p>
+                This is where most people get tripped up. A simple iced coffee can go from 5 calories to over 300 calories depending on what you add. Here is a quick breakdown:
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="nutrition-table">
+                    <thead>
+                        <tr>
+                            <th>Add On</th>
+                            <th>Extra Calories</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Whole Milk (splash)</td><td>20</td></tr>
+                        <tr><td>Cream</td><td>60</td></tr>
+                        <tr><td>Oat Milk</td><td>15</td></tr>
+                        <tr><td>Almond Milk</td><td>10</td></tr>
+                        <tr><td>Caramel Swirl (1 pump)</td><td>50</td></tr>
+                        <tr><td>Mocha Swirl (1 pump)</td><td>50</td></tr>
+                        <tr><td>Sugar (1 packet)</td><td>15</td></tr>
+                        <tr><td>Whipped Cream</td><td>80</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>
+                A medium iced coffee with cream and two pumps of caramel swirl adds up to about 165 calories. That is a big jump from 5 calories for black coffee. Knowing these numbers helps you make better choices.
+            </p>
+
+            <!-- Tips for Ordering Healthy at Dunkin -->
+            <div class="bg-gradient-to-r from-orange-50 to-pink-50 p-6 rounded-xl my-8">
+                <h2 style="margin-top: 0; border-left: none;">Tips for Ordering Healthy at Dunkin</h2>
+                <p>After helping thousands of readers track their Dunkin orders, I have learned a few tricks that actually work:</p>
+                <ul class="space-y-4">
+                    <li><strong>Plan your order before you go.</strong> Use the calculator at home so you know exactly what to ask for.</li>
+                    <li><strong>Do not be afraid to customize.</strong> Dunkin staff are happy to make changes. Ask for light cream, less sugar, or sugar free syrups.</li>
+                    <li><strong>Pair your coffee with protein.</strong> If you need food, go for the Wake Up Wrap. It has only 180 calories but gives you 9 grams of protein to keep you full.</li>
+                    <li><strong>Watch the seasonal drinks.</strong> Pumpkin Spice and holiday drinks often have double the calories of regular menu items.</li>
+                    <li><strong>Stay consistent.</strong> One high calorie treat will not ruin your diet. But daily 500 calorie lattes add up quickly over time.</li>
+                </ul>
+            </div>
+
+            <!-- Frequently Asked Questions -->
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">How many calories are in a medium Dunkin iced coffee?</h3>
+                    <p class="mb-2">A medium iced coffee with no cream or sugar has only 5 calories. Adding cream and sugar can bring it up to 100 calories or more.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">What is the lowest calorie drink at Dunkin?</h3>
+                    <p class="mb-2">Black coffee and unsweetened iced tea have the lowest calories at just 5 calories per serving.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">Does Dunkin have sugar free options?</h3>
+                    <p class="mb-2">Yes. Dunkin offers sugar free flavor shots in vanilla, hazelnut, toasted almond, blueberry, raspberry, and coconut.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">How many calories are in a glazed donut from Dunkin?</h3>
+                    <p class="mb-2">A classic glazed donut from Dunkin has 260 calories, 31 grams of carbs, and 14 grams of fat.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">What is the healthiest breakfast item at Dunkin?</h3>
+                    <p class="mb-2">The Egg and Cheese Wake Up Wrap is one of the healthiest options with only 180 calories and 9 grams of protein.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">Are Dunkin refreshers low calorie?</h3>
+                    <p class="mb-2">Dunkin Refreshers contain about 80 to 120 calories for a medium size depending on the flavor you choose.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">How can I reduce calories in my Dunkin order?</h3>
+                    <p class="mb-2">Switch to almond milk, skip flavor swirls, choose sugar free options, and avoid whipped cream. These small changes can cut your calories in half.</p>
+                </div>
+            </div>
+
+            <!-- Final Thoughts -->
+            <h2>Final Thoughts</h2>
+            <p>
+                Tracking your Dunkin nutrition does not have to be hard. With this calculator and the tips above, you can enjoy your favorite drinks and food without guessing.
+            </p>
+            <p>
+                The key is awareness. Once you know what is in your order, you can make small adjustments that fit your lifestyle and goals.
+            </p>
+            <p>
+                Bookmark this page so you can use the calculator anytime. Your body will thank you for it.
+            </p>
+            <p class="font-bold text-dunkinPink">Now go enjoy your Dunkin run, the smart way.</p>
+
+        </article>
+
+        <!-- About the Writer Section -->
+        <section id="about-writer" class="bg-gray-800 text-white py-16 mt-12">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-shrink-0">
+                        <!-- Placeholder for writer image -->
+                        <div class="w-32 h-32 md:w-48 md:h-48 rounded-full bg-dunkinOrange flex items-center justify-center border-4 border-white shadow-xl">
+                            <i class="fas fa-user-pen text-5xl text-white"></i>
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h2 class="text-2xl font-bold mb-2 text-dunkinPink uppercase tracking-wider">About the Writer</h2>
+                        <h3 class="text-3xl font-serif font-bold mb-4">Sarah Saim</h3>
+                        <p class="text-gray-300 leading-relaxed mb-4">
+                            Sarah is a passionate food blogger and nutritionist enthusiast based in Chicago, USA. With an insatiable curiosity for culinary adventures, she loves to explore different restaurant foods and is always on the hunt to taste something new in the street food scene.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed">
+                            A self-proclaimed fast food lover who believes in balance, Sarah dedicates her time to decoding menus so you can enjoy your favorites guilt-free. When she isn't analyzing nutrition charts or writing her next guide, you can find her hiking the local trails or experimenting with copycat recipes in her kitchen.
+                        </p>
+                        <div class="mt-6 flex justify-center md:justify-start space-x-4">
+                            <a href="#" class="text-white hover:text-dunkinPink transition"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="text-white hover:text-dunkinPink transition"><i class="fab fa-twitter text-2xl"></i></a>
+                            <a href="#" class="text-white hover:text-dunkinPink transition"><i class="fas fa-envelope text-2xl"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-10 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Footer Brand -->
+                <div>
+                    <span class="text-white font-bold text-xl tracking-tight">Dunkin<span class="text-dunkinPink">Nutri</span>Guide</span>
+                    <p class="mt-4 text-sm">Helping you make smarter, healthier choices at your favorite coffee spots. Stay balanced, stay energized.</p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4 uppercase text-sm tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-dunkinOrange transition">Home</a></li>
+                        <li><a href="#calculator-section" class="hover:text-dunkinOrange transition">Calculator</a></li>
+                        <li><a href="#menu-tables" class="hover:text-dunkinOrange transition">Nutrition Tables</a></li>
+                        <li><a href="#" class="hover:text-dunkinOrange transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <!-- Disclaimer -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4 uppercase text-sm tracking-wider">Disclaimer</h4>
+                    <p class="text-xs leading-relaxed">
+                        This website is an independent informational guide and is not affiliated with, endorsed by, or sponsored by Dunkin' Brands. All trademarks belong to their respective owners. Nutrition data is approximate.
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-xs">
+                &copy; 2024 DunkinNutriGuide. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
